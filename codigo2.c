@@ -61,34 +61,38 @@ char direcciones[2][100] = {"CU anexo de ingenieria ", "CU entrando por la calle
 
 int main() {
     int opc;
-    printf("Bienvenido a la Cafeteria Cafesyinc\n");
-    printf("Eres:\n 1. Administrador\n 2. Usuario\n");
-    printf("Ingrese una opcion: ");
-    scanf("%d", &opc);
-    if (opc == 1) {
-        administradores();
-        char usuarioAdmin[20], contrasenaAdmin[20];
-        printf("Acceso al modo Administrador\n");
-        printf("Ingrese nombre de usuario: ");
-        scanf("%s", usuarioAdmin);
-        printf("Ingrese contrasena: ");
-        scanf("%s", contrasenaAdmin);
-        if (verificarAdmin(usuarioAdmin, contrasenaAdmin)) {
-            printf("Acceso concedido. Bienvenido al Menu Administrador.\n");
-            menuAdmin();
+    do{
+        printf("Bienvenido a la Cafeteria Cafesyinc\n");
+        printf("Eres:\n 1. Administrador\n 2. Usuario\n3.Salir");
+        printf("Ingrese una opcion: ");
+        scanf("%d", &opc);
+        if (opc == 1) {
+            administradores();
+            char usuarioAdmin[20], contrasenaAdmin[20];
+            printf("Acceso al modo Administrador\n");
+            printf("Ingrese nombre de usuario: ");
+            scanf("%s", usuarioAdmin);
+            printf("Ingrese contrasena: ");
+            scanf("%s", contrasenaAdmin);
+            if (verificarAdmin(usuarioAdmin, contrasenaAdmin)) {
+                printf("Acceso concedido. Bienvenido al Menu Administrador.\n");
+                menuAdmin();
+            } else {
+                printf("Acceso denegado. Usuario o contrasena incorrectos.\n");
+            }
+        } else if (opc == 2) {
+            mostrarSucursales();
+            int sucursalSeleccionada;
+            scanf("%d", &sucursalSeleccionada);
+            printf("Bienvenido a la %s\n", sucursales[sucursalSeleccionada - 1]);
+            iniciarSesion();
+            mostrarMenu();
+        }else if (opc == 3) {
+            printf("Gracias por su visita. Hasta luego!\n");
         } else {
-            printf("Acceso denegado. Usuario o contrasena incorrectos.\n");
+            printf("Opcion no valida. Intente de nuevo.\n");
         }
-    } else if (opc == 2) {
-        mostrarSucursales();
-        int sucursalSeleccionada;
-        scanf("%d", &sucursalSeleccionada);
-        printf("Bienvenido a la %s\n", sucursales[sucursalSeleccionada - 1]);
-        iniciarSesion();
-        mostrarMenu();
-    } else {
-        printf("Opcion no valida. Intente de nuevo.\n");
-    }
+    }while(opc!=3);
     return 0;
 }
 
